@@ -3,18 +3,33 @@ import { getCelebrities } from "./database.js"
 const celebrities = getCelebrities()
 
 export const Celebrities = () => {
-    let html = "<ol>"
+    let celebrityHTML = "<ol>"
 
-    for (const star of celebrities) {
-        html += `<li 
+    for (const celebrity of celebrities) {
+        celebrityHTML += `<li 
                     data-id="${celebrity.id}" 
                     data-type="celebrity"
-                    data-sport="${celebrty.sport}"
-                    id="star--${celebrity.id}">
-                    ${celebrity.name}
+                    data-sport="${celebrity.sport}"
+                    data-name="${celebrity.name}"
+                    >${celebrity.name}
+                    
                 </li>`
     }
 
-    html += "</ol>"
-    return html
+    celebrityHTML += "</ol>"
+    return celebrityHTML
 }
+
+document.addEventListener(
+    "click",
+    (celebrityClicked) => {
+        const celebrityClickedOn = celebrityClicked.target
+
+        if (celebrityClickedOn.dataset.type === "celebrity") {
+            const star = celebrityClickedOn.dataset.sport
+            const celebName = celebrityClickedOn.dataset.name
+
+            window.alert(`${celebName} is a ${star} star`)
+        }
+    }
+)
